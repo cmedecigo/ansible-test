@@ -1,0 +1,38 @@
+---
+# deploying vm from template
+- hosts: web-vms
+  gather_facts: false
+  connection: local
+  user: remote
+  sudo: true
+
+  vars_prompt:
+    - name: "vcenter_hostname"
+      prompt: "Enter vcenter hostname"
+      private: no
+      default: "vcsa"
+    - name: "vcenter_user"
+      prompt: "Enter vcenter username"
+      private: no
+    - name: "vcenter_pass"
+      prompt: "Enter vcenter password"
+      private: yes
+
+  vars:
+    datacenter: 'Las Vegas Baby'
+    esxi_host: 'esx01lv.mydomain.net'
+    notes: 'Created by Ansible'
+
+  tasks:
+    - vsphere_guest:
+        validate_certs: False
+        vcenter_hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_user }}"
+        password: "{{ vcenter_pass }}"
+        guest: newvm01
+        from_template: yes
+        template_src: Ubuntu 14.04.4
+        cluster: BIGCluster
+        resource_pool: "/Resources"
+        vm_extra_config:
+         folder: ansible-builds
