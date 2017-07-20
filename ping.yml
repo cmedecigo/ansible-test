@@ -1,8 +1,9 @@
 ---
-- name: Ping 
-  hosts: all 
+  - name: Ping 
+    hosts: all
 
-  tasks:
-  - name: ping
-    win_ping:
+    tasks:
+      - name: ping
+        win_ping:
+        
     
