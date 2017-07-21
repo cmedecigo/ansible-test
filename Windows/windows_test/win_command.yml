@@ -1,0 +1,13 @@
+---
+- name: test command
+  hosts: all
+  gather_facts: false
+  connection: local
+   
+  tasks:
+    - win_service:
+       validate_certs: False
+       name: W3SVC
+       state: restarted
+#       sleep: 5
+
