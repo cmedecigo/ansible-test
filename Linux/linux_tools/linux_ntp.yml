@@ -12,5 +12,5 @@
     copy: src=files/ntp/ntp.conf dest=/etc/ntp.conf mode=0644
 
   - name: ensure ntp started
-    service: name=ntp state=started enabled=yes
+    service: name=ntpd state=started enabled=yes
 
