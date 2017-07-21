@@ -1,0 +1,16 @@
+---
+- name: install tools
+  hosts: all
+  become: true
+  tasks:
+  - name: installing NTP
+    apt: name={{item}} state=present update_cache=yes
+    with_items:
+      - ntp
+
+  - name: NTP configuration file
+    copy: src=/var/lib/awx/projects/linux_tools/files/ntp/ntp.conf dest=/etc/ntp.conf mode=0644
+
+  - name: ensure ntp started
+    service: name=ntp state=started enabled=yes
+
